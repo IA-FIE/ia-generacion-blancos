@@ -18,7 +18,7 @@ class Blanco:
 
     def recibir_impactos(self,impactos):
         derecha = random.randint(0, ANCHO_MATRIZ- impactos.max_ancho)
-        abajo = random.randint(0, ALTO_MATRIZ - impactos.max_ancho)
+        abajo = random.randint(0, ALTO_MATRIZ - impactos.max_alto)
         for impacto in impactos:
             x, y = derecha + impacto.posicion[0], abajo + impacto.posicion[1]
             self.matriz[y][x] = impacto.indicador
@@ -34,10 +34,9 @@ if __name__ == "__main__":
     blanco = Blanco()
     impactos = disparos.Impactos()
     try:
-        impactos.generar_disparos(max_ancho=12, max_alto=12)
+        impactos.generar_disparos(max_ancho=24, max_alto=28)
         blanco.recibir_impactos(impactos)
         blanco.mostrar_matriz()
-        blanco.guardar_csv("nuevo.csv")
     except disparos.ValueTooSmall:
         print("No se puedo ingresar los impactos.")
         blanco.mostrar_matriz()
