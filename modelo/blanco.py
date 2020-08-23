@@ -4,8 +4,8 @@ from modelo import disparos
 
 ALTO_BLANCO = 14
 ANCHO_BLANCO = 12
-ALTO_MATRIZ = ALTO_BLANCO * 4
-ANCHO_MATRIZ = ANCHO_BLANCO * 4
+ALTO_MATRIZ = ALTO_BLANCO * 2
+ANCHO_MATRIZ = ANCHO_BLANCO * 2
 
 class Blanco:
     """ Matriz que representa la superficie del blanco de MOTE """
@@ -24,7 +24,7 @@ class Blanco:
             self.matriz[y][x] = impacto.indicador
 
     def guardar_csv(self, filename):
-        with open(file=filename, mode="w") as f:
+        with open(file=filename, mode="w", newline='') as f:
             csvwriter = csv.writer(f)
             csvwriter.writerows(self.matriz)
 

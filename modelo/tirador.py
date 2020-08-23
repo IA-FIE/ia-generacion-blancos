@@ -17,9 +17,8 @@ class Tirador:
         de los disparos"""
         blanco = Blanco()
         impactos = Impactos()
-        impactos.generar_disparos(max_ancho, max_alto)
         try:
-            impactos.generar_disparos(max_ancho=12, max_alto=12)
+            impactos.generar_disparos(max_ancho, max_alto)
             blanco.recibir_impactos(impactos)
             self.blancos_usados.append(blanco)
         except disparos.ValueTooSmall:
