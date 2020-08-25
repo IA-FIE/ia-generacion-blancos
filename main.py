@@ -1,10 +1,36 @@
 #!/usr/bin/env python
 import argparse
+import csv
+from os import listdir
+from os.path import isfile, join
+
+
 
 from modelo import tirador
 
 def validar_int_args(arg:int, max:int):
     return arg > 2 and arg <= max
+
+def validar_csv():
+    #TODO: Implementar un algoritmo que valide que los CSV tengan los tiros adecuados.
+    pass
+
+def generar_archivo(nombre_archivo):
+    # nombre_archivo: es el nombre que tiene la carpeta de la cual quiero concatenar los archivos.
+    # archivo: el csv de blanco que estoy trabajando.
+    with open(nombre_archivo + ".csv","w", newline='') as nuevo:
+        archivos = [f for f in listdir("./" + nombre_archivo) if isfile(join("./" + nombre_archivo, f))]
+        for archivo in archivos:
+            with open(nombre_archivo + "/" + archivo, "r") as blanco:
+                reader = csv.reader(blanco)
+                for fila in reader:
+                    nuevo.write(",".join(fila))
+                    nuevo.write(",")
+                # nuevo.write(aprobado o desaprobado)
+                nuevo.write("\n")
+                
+                    
+
 
 
 if __name__ == "__main__":
@@ -27,5 +53,6 @@ if __name__ == "__main__":
             # son aleatorio con distr uniforme
             tirador.tirar(max_alto=args.max_alto, max_ancho=args.max_ancho)
         tirador.guardar_blancos(args.directorio)
+        generar_archivo(args.directorio)
     else:
         print("Ancho o alto incorrecto. --help para ayuda.")
