@@ -28,6 +28,9 @@ class Blanco:
             csvwriter = csv.writer(f)
             csvwriter.writerows(self.matriz)
 
+    def get_datos(self):
+        return self.matriz
+
 
 
 if __name__ == "__main__":
