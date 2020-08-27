@@ -53,6 +53,6 @@ if __name__ == "__main__":
             # son aleatorio con distr uniforme
             tirador.tirar(max_alto=args.max_alto, max_ancho=args.max_ancho)
         tirador.guardar_blancos(args.directorio)
-        generar_archivo(args.directorio)
+        # generar_archivo(args.directorio)
     else:
         print("Ancho o alto incorrecto. --help para ayuda.")
