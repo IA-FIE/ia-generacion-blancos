@@ -24,9 +24,20 @@ class Tirador:
         except disparos.ValueTooSmall:
             print("No se puedo ingresar los impactos.")
 
+    def tirar_mal(self, max_ancho, max_alto):
+        blanco = Blanco()
+        impactos = Impactos()
+        try:
+            impactos.generar_dispersos(max_ancho, max_alto)
+            blanco.recibir_impactos(impactos)
+            self.blancos_usados.append(blanco)
+        except disparos.ValueTooSmall:
+            print("No se puedo ingresar los impactos.")
+
     def mostrar_blanco(self, index):
         """ Metodo para que el tirador nos muestre en pantalla 1 de los blancos en su poder. """
         self.blancos_usados[index].mostrar_matriz()
+        return
 
     def guardar_blancos(self, foldername:str):
         """ Dado un nombre de carpeta guarda todos los blancos que posee el tirador en esa carpeta """
@@ -39,8 +50,10 @@ class Tirador:
 
     def descartar_blancos(self):
         if len(self.blancos_usados) > 0:
-            if str(input("Esta accion destruirá todos los blancos en memoria. Esta seguro? [s/N]")).upper() == "S":
-                self.blancos_usados.clear()
+            self.blancos_usados.clear()
+
+    def get_datos(self):
+        return list(map(lambda b : b.get_datos(), self.blancos_usados))
 
 
 if __name__ == "__main__":
