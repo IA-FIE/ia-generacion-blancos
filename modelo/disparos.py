@@ -34,14 +34,15 @@ class Impactos(list):
                 self.append(Disparo(posicion=pos,indicador=1))
 
             for pos in posiciones[DISPAROS_SERIE:]:
-                self.append(Disparo(posicion=pos, indicador=2))
-            superficies = self.calcular_superficies()
+                self.append(Disparo(posicion=pos, indicador=-1))
             # print(f'Superficies: {superficies}')
 
         else:
             raise ValueTooSmall
 
-    def generar_dispersos(self, max_ancho, max_alto, area_deseada = 60.5):
+    def generar_dispersos(self, max_ancho, max_alto, area_deseada = 12.5):
+        """Garantiza que al menos uno de los dos triangulos generados tiene un área superiror a la
+        maxima que puede tener un triangulo aprobado"""
         self.max_ancho = max_ancho
         self.max_alto = max_alto
         area = 0.0
@@ -50,11 +51,12 @@ class Impactos(list):
             self.generar_disparos(max_ancho=max_ancho,max_alto=max_alto)
             area = max(self.calcular_superficies())
 
+
     def calcular_superficies(self):
         if len(self) == 6:
             tanda = list(filter(lambda d: d.indicador == 1, self))
             coord_tanda_1 = list(map(lambda d: d.posicion, tanda))
-            tanda = list(filter(lambda d: d.indicador == 2, self))
+            tanda = list(filter(lambda d: d.indicador == -1, self))
             coord_tanda_2 = list(map(lambda d: d.posicion, tanda))
             superficies = superficie_triangulo(coord_tanda_1), superficie_triangulo(coord_tanda_2)
             return superficies
