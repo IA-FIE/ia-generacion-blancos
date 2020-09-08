@@ -59,6 +59,7 @@ def heatmap(data, row_labels, col_labels, ax=None,
     ax.set_yticks(np.arange(data.shape[0]+1)-.5, minor=True)
     ax.grid(which="minor", color="w", linestyle='-', linewidth=3)
     ax.tick_params(which="minor", bottom=False, left=False)
+    plt.savefig('plot.png', dpi=300, bbox_inches='tight')
     plt.show()
     return im, cbar
 
