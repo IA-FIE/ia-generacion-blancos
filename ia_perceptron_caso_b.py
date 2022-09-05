@@ -10,7 +10,7 @@ if __name__ == "__main__":
     tirador = tirador.Tirador()
     clasificacion = []
     CANT_DATOS = 30000
-    # Creamos CANT_DATOS muestras mitad aprobadas y mitad desaprobadas
+    # Creamos CANT_DATOS muestras mitad con error de punteria y mitad desaprobadas
     for _ in tqdm(range(CANT_DATOS // 2)):
         tirador.tirar_punteria(max_ancho=6, max_alto=6)
         clasificacion.append(1) # Lo clasificamos como 1 "Error punteria"

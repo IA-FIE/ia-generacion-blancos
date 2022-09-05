@@ -49,7 +49,6 @@ class Impactos(list):
             self.generar_disparos(max_ancho=max_ancho, max_alto=max_alto, indicador=-1)
             area = max(self.calcular_superficies())
 
-
     def calcular_superficies(self):
         if len(self) == 6:
             tanda = list(filter(lambda d: d.indicador == 1, self))
@@ -59,21 +58,6 @@ class Impactos(list):
             superficies = superficie_triangulo(coord_tanda_1), superficie_triangulo(coord_tanda_2)
             return superficies
 
-    def determinar_distancia_centros(self):
-        """ Determina el centro de la serie de disparos """
-        x1, x2, y1, y2 = 0, 0, 0, 0
-        for disparo in self[3:]:
-            x1 += disparo.posicion[0]
-            y1 += disparo.posicion[1]
-        for disparo in self[:3]:
-            x2 += disparo.posicion[0]
-            y2 += disparo.posicion[1]
-        x1 = x1 // 3
-        y1 = y1 // 3
-        x2 = x2 // 3
-        #print("Centro de la serie: ({}, {})".format(xc, yc))
-        return calcular_distancia_entre_puntos( (x1, y1), (x2, y2) )
-
     def vaciar(self):
         self.clear()
 
@@ -82,11 +66,6 @@ def superficie_triangulo(puntos):
     if len(puntos) == 3:
         A, B, C = puntos
         return abs(0.5 * (A[0] * (B[1] - C[1]) + B[0] * (C[1] - A[1]) + C[0] * (A[1] - B[1])))
-
-
-def calcular_distancia_entre_puntos(p1, p2):
-    """ Calcula la distancia entre dos puntos """
-    return ((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) ** 0.5
 
 
 if __name__ == "__main__":
