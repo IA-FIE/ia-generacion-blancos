@@ -18,6 +18,7 @@ class Disparo:
     def __repr__(self):
         return str(self.posicion) + "->" + str(self.indicador)
 
+
 class Impactos(list):
     """ Genera y contiene una lista de 6 disparos, como los realizados en el blanco de MOTE """
     def __init__(self, *args):
@@ -25,18 +26,14 @@ class Impactos(list):
         self.max_ancho = 0
         self.max_alto = 0
 
-    def generar_disparos(self,max_ancho,max_alto):
+    def generar_disparos(self, max_ancho, max_alto, indicador):
         self.max_ancho = max_ancho
         self.max_alto = max_alto
         if max_ancho * max_alto >= IMPACTOS_TOT:
-            posiciones = sample(list(product(range(max_ancho), range(max_alto))), k=IMPACTOS_TOT)
-            for pos in posiciones[:DISPAROS_SERIE]:
-                self.append(Disparo(posicion=pos,indicador=1))
-
-            for pos in posiciones[DISPAROS_SERIE:]:
-                self.append(Disparo(posicion=pos, indicador=-1))
+            posiciones = sample(list(product(range(max_ancho), range(max_alto))), k=DISPAROS_SERIE)
+            for pos in posiciones:
+                self.append(Disparo(posicion=pos, indicador=indicador))
             # print(f'Superficies: {superficies}')
-
         else:
             raise ValueTooSmall
 
@@ -48,7 +45,8 @@ class Impactos(list):
         area = 0.0
         while area <= area_deseada:
             self.clear()
-            self.generar_disparos(max_ancho=max_ancho,max_alto=max_alto)
+            self.generar_disparos(max_ancho=max_ancho,max_alto=max_alto, indicador=1)
+            self.generar_disparos(max_ancho=max_ancho, max_alto=max_alto, indicador=-1)
             area = max(self.calcular_superficies())
 
 
@@ -61,13 +59,31 @@ class Impactos(list):
             superficies = superficie_triangulo(coord_tanda_1), superficie_triangulo(coord_tanda_2)
             return superficies
 
+    def determinar_centro(self):
+        """ Determina el centro de la serie de disparos """
+        xc = 0
+        yc = 0
+        for disparo in self:
+            xc += disparo.posicion[0]
+            yc += disparo.posicion[1]
+        xc = xc // 3
+        yc = yc // 3
+        #print("Centro de la serie: ({}, {})".format(xc, yc))
+        return xc, yc
+
     def vaciar(self):
         self.clear()
+
 
 def superficie_triangulo(puntos):
     if len(puntos) == 3:
         A, B, C = puntos
         return abs(0.5 * (A[0] * (B[1] - C[1]) + B[0] * (C[1] - A[1]) + C[0] * (A[1] - B[1])))
+
+
+def calcular_distancia_entre_puntos(p1, p2):
+    """ Calcula la distancia entre dos puntos """
+    return ((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) ** 0.5
 
 
 if __name__ == "__main__":

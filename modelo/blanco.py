@@ -16,8 +16,8 @@ class Blanco:
         for row in self.matriz:
             print(*row)
 
-    def recibir_impactos(self,impactos):
-        derecha = random.randint(0, ANCHO_MATRIZ- impactos.max_ancho)
+    def recibir_impactos(self, impactos):
+        derecha = random.randint(0, ANCHO_MATRIZ - impactos.max_ancho)
         abajo = random.randint(0, ALTO_MATRIZ - impactos.max_alto)
         for impacto in impactos:
             x, y = derecha + impacto.posicion[0], abajo + impacto.posicion[1]
