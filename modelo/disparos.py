@@ -59,17 +59,20 @@ class Impactos(list):
             superficies = superficie_triangulo(coord_tanda_1), superficie_triangulo(coord_tanda_2)
             return superficies
 
-    def determinar_centro(self):
+    def determinar_distancia_centros(self):
         """ Determina el centro de la serie de disparos """
-        xc = 0
-        yc = 0
-        for disparo in self:
-            xc += disparo.posicion[0]
-            yc += disparo.posicion[1]
-        xc = xc // 3
-        yc = yc // 3
+        x1, x2, y1, y2 = 0, 0, 0, 0
+        for disparo in self[3:]:
+            x1 += disparo.posicion[0]
+            y1 += disparo.posicion[1]
+        for disparo in self[:3]:
+            x2 += disparo.posicion[0]
+            y2 += disparo.posicion[1]
+        x1 = x1 // 3
+        y1 = y1 // 3
+        x2 = x2 // 3
         #print("Centro de la serie: ({}, {})".format(xc, yc))
-        return xc, yc
+        return calcular_distancia_entre_puntos( (x1, y1), (x2, y2) )
 
     def vaciar(self):
         self.clear()

@@ -25,6 +25,20 @@ class Tirador:
         except disparos.ValueTooSmall:
             print("No se puedo ingresar los impactos.")
 
+    def tirar_punteria(self, max_ancho,max_alto):
+        blanco = Blanco()
+        impactos = Impactos()
+        try:
+            impactos.generar_disparos(max_ancho, max_alto, 1)
+            blanco.recibir_impactos(impactos)
+            for _ in range(3):
+                impactos.pop()
+            impactos.generar_disparos(max_ancho, max_alto, -1)
+            blanco.recibir_impactos(impactos)
+            self.blancos_usados.append(blanco)
+        except disparos.ValueTooSmall:
+            print("No se puedo ingresar los impactos.")
+
     def tirar_mal(self, max_ancho, max_alto):
         blanco = Blanco()
         impactos = Impactos()
