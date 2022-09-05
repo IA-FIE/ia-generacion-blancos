@@ -10,7 +10,7 @@ if __name__ == "__main__":
     tirador = tirador.Tirador()
     clasificacion = []
     CANT_DATOS = 30000
-    # Creamos CANT_DATOS muestras mitad con error de punteria y mitad desaprobadas
+    # Creamos CANT_DATOS muestras mitad con error de punteria y mitad deficiente instruccion
     for _ in tqdm(range(CANT_DATOS // 2)):
         tirador.tirar_punteria(max_ancho=6, max_alto=6)
         clasificacion.append(1) # Lo clasificamos como 1 "Error punteria"
@@ -32,18 +32,18 @@ if __name__ == "__main__":
     # Prueba de prediccion de buen desempeño
     CANT_PRUEBA = 100
     # Hago 100 Blancos aprobados
-    print("\nPRUEBA APROBADOS")
+    print("\nPRUEBA CON ERROR DE PUNTERIA")
     for _ in range(CANT_PRUEBA):
         tirador.tirar_punteria(max_alto=6, max_ancho=6)
         prueba = tirador.get_datos()
     matriz_prueba = np.array(prueba, dtype=float)
     matriz_prueba = matriz_prueba.reshape(CANT_PRUEBA, 28 * 24)
-    print(f'Acertó {clf.predict(matriz_prueba).sum()} de {CANT_PRUEBA} blancos aprobados.')
+    print(f'Acertó {clf.predict(matriz_prueba).sum()} de {CANT_PRUEBA} blancos con error de punteria.')
     tirador.descartar_blancos()
 
     # Prueba de prediccion de mal desempeño
     # Hago 100 blancos desaprobados
-    print("\nPRUEBA DESAPROBADOS")
+    print("\nPRUEBA DEFICIENTE INSTRUCCION")
     for _ in range(CANT_PRUEBA):
         tirador.tirar_mal(max_alto=28, max_ancho=24)
         prueba = tirador.get_datos()

@@ -32,11 +32,29 @@ class Tirador:
             impactos.generar_disparos(max_ancho, max_alto, -1)
             lista_impactos.extend(blanco.recibir_impactos(impactos))
             distancia_centros = calcular_distancia_centros(lista_impactos)
-            while 6 > distancia_centros:
+            while 4 > distancia_centros:
                 blanco.eliminar_impactos(lista_impactos[3:6])
                 del lista_impactos[3:6]
                 lista_impactos.extend(blanco.recibir_impactos(impactos))
                 distancia_centros = calcular_distancia_centros(lista_impactos)
+            self.blancos_usados.append(blanco)
+        except disparos.ValueTooSmall:
+            print("No se puedo ingresar los impactos.")
+
+    def tirar_mal_c_d_e(self, max_ancho, max_alto):
+        blanco = Blanco()
+        impactos = Impactos()
+        try:
+            impactos.generar_dispersos(max_ancho, max_alto)
+            lista_impactos = blanco.recibir_impactos(impactos)
+            distancia_centros = calcular_distancia_centros(lista_impactos)
+            while 4 > distancia_centros:
+                blanco.limpiar_blanco()
+                impactos.vaciar()
+                impactos.generar_dispersos(max_ancho, max_alto)
+                lista_impactos = blanco.recibir_impactos(impactos)
+                distancia_centros = calcular_distancia_centros(lista_impactos)
+            #print(f'Distancia_centros {distancia_centros}')
             self.blancos_usados.append(blanco)
         except disparos.ValueTooSmall:
             print("No se puedo ingresar los impactos.")
@@ -46,7 +64,15 @@ class Tirador:
         impactos = Impactos()
         try:
             impactos.generar_dispersos(max_ancho, max_alto)
-            blanco.recibir_impactos(impactos)
+            lista_impactos = blanco.recibir_impactos(impactos)
+            distancia_centros = calcular_distancia_centros(lista_impactos)
+            while 4 < distancia_centros:
+                blanco.limpiar_blanco()
+                impactos.vaciar()
+                impactos.generar_dispersos(max_ancho, max_alto)
+                lista_impactos = blanco.recibir_impactos(impactos)
+                distancia_centros = calcular_distancia_centros(lista_impactos)
+            #print(f'Distancia_centros {distancia_centros}')
             self.blancos_usados.append(blanco)
         except disparos.ValueTooSmall:
             print("No se puedo ingresar los impactos.")
@@ -102,5 +128,8 @@ if __name__ == "__main__":
     """
 
     tirador = Tirador()
-    tirador.tirar_mal(max_alto=6, max_ancho=24)
-    tirador.mostrar_blanco(0)
+    for i in range(3):
+        tirador.tirar_mal_c_d_e(max_ancho=24, max_alto=28)
+        print(f'\nBlanco {i}: {tirador.mostrar_blanco(index=i)}\n')
+
+
