@@ -70,28 +70,57 @@ COLUMNAS = list(range(1, 25))
 
 if __name__ == "__main__":
 
-
     tirador = Tirador()
     """
     # Generar un blanco desaprobado y graficarlo
-    tirador.tirar_mal(max_ancho=24, max_alto=28)
+    tirador.tirar(max_ancho=6, max_alto=6)
     desaprobado = np.array(tirador.get_datos()[0], dtype=float)
     heatmap(desaprobado, FILAS, COLUMNAS)
     tirador.descartar_blancos()
 
-    # Mostrar acumulados de n tiros
+    tirador.tirar_punteria(max_ancho=6, max_alto=6)
+    desaprobado = np.array(tirador.get_datos()[0], dtype=float)
+    heatmap(desaprobado, FILAS, COLUMNAS)
+    tirador.descartar_blancos()
+
+    tirador.tirar_mal_c_d_e(max_ancho=24, max_alto=28)
+    desaprobado = np.array(tirador.get_datos()[0], dtype=float)
+    heatmap(desaprobado, FILAS, COLUMNAS)
+    tirador.descartar_blancos()
+
+    tirador.tirar_mal_c_d_e(max_ancho=24, max_alto=28)
+    desaprobado = np.array(tirador.get_datos()[0], dtype=float)
+    heatmap(desaprobado, FILAS, COLUMNAS)
+    tirador.descartar_blancos()
+
+    tirador.tirar_mal_c_d_e(max_ancho=6, max_alto=28)
+    desaprobado = np.array(tirador.get_datos()[0], dtype=float)
+    heatmap(desaprobado, FILAS, COLUMNAS)
+    tirador.descartar_blancos()
+
+    tirador.tirar_mal_c_d_e(max_ancho=24, max_alto=6)
+    desaprobado = np.array(tirador.get_datos()[0], dtype=float)
+    heatmap(desaprobado, FILAS, COLUMNAS)
+    tirador.descartar_blancos()
+
+    tirador.tirar_mal(max_ancho=24, max_alto=28)
+    desaprobado = np.array(tirador.get_datos()[0], dtype=float)
+    heatmap(desaprobado, FILAS, COLUMNAS)
+    tirador.descartar_blancos()
+"""
+    # Mostrar acumulados buenos de n tiros
     acumulados = np.zeros((28,24))
     for _ in range(20000):
-        tirador.tirar(6,6)
+        tirador.tirar_mal_c_d_e(6,28)
         acumulados += np.abs(np.array(tirador.get_datos()[0], dtype=float))
         tirador.descartar_blancos()
-
     heatmap(acumulados, FILAS, COLUMNAS)
 """
-    acumulados = np.zeros((28, 24))
+# Mostrar acumulados buenos de n tiros
+    acumulados = np.zeros((28,24))
     for _ in range(20000):
         tirador.tirar_mal_c_d_e(max_ancho=6, max_alto=28)
         acumulados += np.abs(np.array(tirador.get_datos()[0], dtype=float))
+        heatmap(acumulados, FILAS, COLUMNAS)
         tirador.descartar_blancos()
-
-    heatmap(acumulados, FILAS, COLUMNAS)
+"""

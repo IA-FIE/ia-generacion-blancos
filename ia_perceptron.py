@@ -22,7 +22,7 @@ if __name__ == "__main__":
         tirador.tirar_mal_c_d_e(max_ancho=24, max_alto=6)
         clasificacion.append(5)  # Lo clasificamos como 5 "Error posicion inestable"
         tirador.tirar_mal(max_ancho=24, max_alto=28)
-        clasificacion.append(0)  # Lo clasificamos como 0 "Desaprobado"
+        clasificacion.append(0)  # Lo clasificamos como 0 "Deficiente instruccion"
 
     # Metemos los datos en numpy arrays y los acomodamos
     matriz_datos = np.array(tirador.get_datos(), dtype=float)
@@ -33,8 +33,8 @@ if __name__ == "__main__":
     # Creamos el perceptron y lo entrenamos
     inicio = time.time()
     clf = MLPClassifier(solver='adam', activation="tanh",
-                        max_iter=800, random_state=4,
-                        hidden_layer_sizes=(972//6, 972//9, 972//12),
+                        max_iter=800, random_state=6,
+                        hidden_layer_sizes=(672//6, 672//9, 672//12),
                         verbose=True)
     clf = clf.fit(matriz_datos, matriz_clasificacion)
     tirador.descartar_blancos()
@@ -136,6 +136,14 @@ if __name__ == "__main__":
     print("\nPrueba caso F")
     blancoF = blancoF.reshape(1, 28 * 24)
     print(f'Prediccion blanco deficiente instruccion: {clf.predict(blancoF)} -> debe ser 0')
+
+    print("\nPrueba blanco del soldado aprobado")
+    blanco_soldado_A = blanco_soldado_A.reshape(1, 28 * 24)
+    print(f'Prediccion blanco aprobado: {clf.predict(blanco_soldado_A)} -> debe ser 1')
+
+    print("\nPrueba blanco del soldado con error de punteria")
+    blanco_soldado_B = blanco_soldado_B.reshape(1, 28 * 24)
+    print(f'Prediccion blanco con error de puntería: {clf.predict(blanco_soldado_B)} -> debe ser 0')
 
     fin = time.time()
     tiempo_total = time.gmtime(fin - inicio)

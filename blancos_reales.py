@@ -40,6 +40,16 @@ blancoF = crear_blanco(
     [[2, 11, -1], [12, 13, -1], [20, 15, -1],
      [12, 12, 1], [20, 1, 1], [26, 13, 1]])
 
+# Blanco real aprobado
+blanco_soldado_A = crear_blanco(
+    [[11, 8, -1], [15, 7, -1], [15, 8, -1],
+     [14, 8, 1], [16, 8, 1], [16, 12, 1]])
+
+# Blanco real error de punteria
+blanco_soldado_B = crear_blanco(
+    [[14, 13, -1], [19, 15, -1], [20, 11, -1],
+     [23, 11, 1], [23, 16, 1], [27, 14, 1]])
+
 if __name__ == "__main__":
     heatmap(blancoA, FILAS, COLUMNAS)
     heatmap(blancoB, FILAS, COLUMNAS)
