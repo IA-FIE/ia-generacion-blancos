@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.neural_network import MLPClassifier
 import time
 from tqdm import tqdm
-from blancos_reales import blancoB, blancoF
+from blancos_reales import *
 
 
 if __name__ == "__main__":
@@ -15,7 +15,7 @@ if __name__ == "__main__":
         tirador.tirar_punteria(max_ancho=6, max_alto=6)
         clasificacion.append(1) # Lo clasificamos como 1 "Error punteria"
         tirador.tirar_mal(max_ancho=24, max_alto=28)
-        clasificacion.append(0) # Lo clasificamos como 0 "Desaprobado"
+        clasificacion.append(0) # Lo clasificamos como 0 "Deficiente instruccion"
 
     # Metemos los datos en numpy arrays y los acomodamos
     matriz_datos = np.array(tirador.get_datos(), dtype=float)
@@ -29,9 +29,10 @@ if __name__ == "__main__":
                         hidden_layer_sizes=(672//6,672//9,672//12), verbose=True)
     clf = clf.fit(matriz_datos, matriz_clasificacion)
     tirador.descartar_blancos()
+
     # Prueba de prediccion de buen desempeño
     CANT_PRUEBA = 100
-    # Hago 100 Blancos aprobados
+    # Hago 100 Blancos con error de punteria
     print("\nPRUEBA CON ERROR DE PUNTERIA")
     for _ in range(CANT_PRUEBA):
         tirador.tirar_punteria(max_alto=6, max_ancho=6)
@@ -41,8 +42,8 @@ if __name__ == "__main__":
     print(f'Acertó {clf.predict(matriz_prueba).sum()} de {CANT_PRUEBA} blancos con error de punteria.')
     tirador.descartar_blancos()
 
-    # Prueba de prediccion de mal desempeño
-    # Hago 100 blancos desaprobados
+    # Prueba de prediccion mal desempeño
+    # Hago 100 blancos con deficiente instruccion
     print("\nPRUEBA DEFICIENTE INSTRUCCION")
     for _ in range(CANT_PRUEBA):
         tirador.tirar_mal(max_alto=28, max_ancho=24)
@@ -52,10 +53,32 @@ if __name__ == "__main__":
     print(f'Acertó {CANT_PRUEBA - clf.predict(matriz_prueba).sum()} de {CANT_PRUEBA} blancos desaprobados.')
     tirador.descartar_blancos()
 
-    # Prueba de prediccion de buen desempeño
-    print("\nPrueba blanco B")
+    # Prueba de prediccion de buen desempeño (Error de punteria)
+    print("\nPrueba caso B")
     blancoB = blancoB.reshape(1, 28 * 24)
-    print(f'Prediccion blanco aprobado: {clf.predict(blancoB)} -> debe ser 1')
+    print(f'Prediccion blanco con error de punteria: {clf.predict(blancoB)} -> debe ser 1')
+
+    # Prueba de prediccion de mal desempeño por casos
+    print("\nPrueba caso A")
+    blancoA = blancoA.reshape(1, 28 * 24)
+    print(f'Prediccion blanco aprobado: {clf.predict(blancoA)} -> debe ser 0')
+
+    print("\nPrueba caso C")
+    blancoC = blancoC.reshape(1, 28 * 24)
+    print(f'Prediccion blanco con tironeo: {clf.predict(blancoC)} -> debe ser 0')
+
+    print("\nPrueba caso D")
+    blancoD = blancoD.reshape(1, 28 * 24)
+    print(f'Prediccion blanco mala respiracion: {clf.predict(blancoD)} -> debe ser 0')
+
+    print("\nPrueba caso E")
+    blancoE = blancoE.reshape(1, 28 * 24)
+    print(f'Prediccion blanco con posicion inestable: {clf.predict(blancoE)} -> debe ser 0')
+
+    print("\nPrueba caso F")
+    blancoF = blancoF.reshape(1, 28 * 24)
+    print(f'Prediccion blanco deficiente instruccion: {clf.predict(blancoF)} -> debe ser 0')
+
 
     # Prueba de prediccion de mal desempeño
     print("\nPrueba blanco F")

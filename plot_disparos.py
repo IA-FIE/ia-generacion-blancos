@@ -72,8 +72,9 @@ if __name__ == "__main__":
     tirador = tirador.Tirador()
     tirador.tirar(max_alto=6,max_ancho=6)
     aprobado = np.array(tirador.get_datos()[0], dtype=float)
+    print(aprobado)
     heatmap(aprobado, FILAS, COLUMNAS)
-
+"""
     # Generar un blanco desaprobado y graficarlo
     tirador.tirar_mal(max_ancho=23, max_alto=27)
     desaprobado = np.array(tirador.get_datos()[1], dtype=float)
@@ -97,3 +98,4 @@ if __name__ == "__main__":
 
     heatmap(acumulados, FILAS, COLUMNAS)
 
+"""
