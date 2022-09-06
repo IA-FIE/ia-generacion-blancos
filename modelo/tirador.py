@@ -5,6 +5,7 @@ from modelo.blanco import Blanco
 from modelo.disparos import Impactos
 
 
+
 class Tirador:
     def __init__(self):
         self.blancos_usados = []
@@ -120,16 +121,35 @@ def calcular_distancia_entre_puntos(p1, p2):
 
 
 if __name__ == "__main__":
-    """
-    tirador = Tirador()
-    for _ in range(10):
-        tirador.tirar(max_alto=12,max_ancho=12)
-    tirador.guardar_blancos("aprobados")    
-    """
 
     tirador = Tirador()
-    for i in range(3):
+    for i in range(2):
+        tirador.tirar(max_ancho=6, max_alto=6, )
+    tirador.guardar_blancos("aprobados")
+    tirador.descartar_blancos()
+
+    for i in range(2):
+        tirador.tirar_punteria(max_ancho=6, max_alto=6)
+    tirador.guardar_blancos("punteria")
+    tirador.descartar_blancos()
+
+    for i in range(2):
         tirador.tirar_mal_c_d_e(max_ancho=24, max_alto=28)
-        print(f'\nBlanco {i}: {tirador.mostrar_blanco(index=i)}\n')
+    tirador.guardar_blancos("tireoneo")
+    tirador.descartar_blancos()
 
+    for i in range(2):
+        tirador.tirar_mal_c_d_e(max_ancho=6, max_alto=28)
+    tirador.guardar_blancos("respiracion")
+    tirador.descartar_blancos()
+
+    for i in range(2):
+        tirador.tirar_mal_c_d_e(max_ancho=24, max_alto=6)
+    tirador.guardar_blancos("posicion")
+    tirador.descartar_blancos()
+
+    for i in range(2):
+        tirador.tirar_mal(max_ancho=24, max_alto=28)
+    tirador.guardar_blancos("deficiente-instruccion")
+    tirador.descartar_blancos()
 

@@ -1,5 +1,4 @@
 from modelo import tirador
-import numpy as np
 from sklearn.neural_network import MLPClassifier
 import time
 from tqdm import tqdm

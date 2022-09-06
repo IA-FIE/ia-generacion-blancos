@@ -39,7 +39,7 @@ if __name__ == "__main__":
         prueba = tirador.get_datos()
     matriz_prueba = np.array(prueba, dtype=float)
     matriz_prueba = matriz_prueba.reshape(CANT_PRUEBA, 28 * 24)
-    print(f'Acertó {clf.predict(matriz_prueba).sum()} de {CANT_PRUEBA} blancos aprobados.')
+    print(f'Acertó {clf.predict(matriz_prueba).sum()} de {CANT_PRUEBA} blancos con error de tironeo.')
     tirador.descartar_blancos()
 
     # Prueba de prediccion de mal desempeño
