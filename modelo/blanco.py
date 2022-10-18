@@ -7,6 +7,7 @@ ANCHO_BLANCO = 12
 ALTO_MATRIZ = ALTO_BLANCO * 2
 ANCHO_MATRIZ = ANCHO_BLANCO * 2
 
+
 class Blanco:
     """ Matriz que representa la superficie del blanco de MOTE """
     def __init__(self):
@@ -42,14 +43,15 @@ class Blanco:
             self.matriz[y][x] = "0"
 
 
-
 if __name__ == "__main__":
     blanco = Blanco()
     impactos = disparos.Impactos()
     try:
-        impactos.generar_disparos(max_ancho=24, max_alto=28)
+        impactos.generar_disparos(max_ancho=24, max_alto=28, indicador=1)
+        impactos.generar_disparos(max_ancho=24, max_alto=28, indicador=-1)
         blanco.recibir_impactos(impactos)
         blanco.mostrar_matriz()
+        blanco.guardar_csv("blanco.csv")
     except disparos.ValueTooSmall:
         print("No se puedo ingresar los impactos.")
         blanco.mostrar_matriz()
